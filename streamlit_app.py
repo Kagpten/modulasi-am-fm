@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
-matplotlib.use("TkAgg")
+echo "backend: TkAgg" >> ~/.matplotlib/matplotlibrc
 
 # Modulasi Amplitudo
 def modulasi_amplitudo(amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t):
