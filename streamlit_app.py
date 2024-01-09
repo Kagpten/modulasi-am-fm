@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
 from PIL import Image
 
 matplotlib.use('TkAgg')
@@ -52,106 +52,32 @@ def main():
     # Choose modulation type
     jenis_modulasi = st.radio("Pilih Modulasi:", ["Modulasi Amplitudo", "Modulasi Frekuensi"])
 
+
     if st.button("Proses"):
         # Waktu (t) with more points
         t = np.linspace(0, 1, 10000)
-
-        # Clear previous plots
-        plt.clf()
 
         if jenis_modulasi == "Modulasi Amplitudo":
             # Perform modulation
             sinyal_informasi, sinyal_pembawa, sinyal_AM, nilai_m = modulasi_amplitudo(
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
-            
-            label_nilai_m = st.empty()
-            label_nilai_m.text(f"Nilai Indeks Modulasi: {nilai_m}")
 
-            # Plot sinyal informasi
-            fig_info, ax_info = plt.subplots()
-            ax_info.plot(t, sinyal_informasi)
-            ax_info.set_title('Sinyal Informasi')
-            ax_info.set_xlabel('Waktu (s)')
-            ax_info.set_ylabel('Amplitudo (V)')
-            ax_info.grid()
+            # Create a DataFrame for the time series data
+            df = pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi, 'Pembawa': sinyal_pembawa, 'Modulasi': sinyal_AM})
 
-            # Set x-axis and y-axis limits for a better scale
-            ax_info.set_xlim(0, 0.1)  # Adjust the values as needed
-
-            st.pyplot(fig_info)
-
-            # Plot sinyal pembawa
-            fig_carrier, ax_carrier = plt.subplots()
-            ax_carrier.plot(t, sinyal_pembawa)
-            ax_carrier.set_title('Sinyal Pembawa')
-            ax_carrier.set_xlabel('Waktu (s)')
-            ax_carrier.set_ylabel('Amplitudo (V)')
-            ax_carrier.grid()
-
-            # Set x-axis and y-axis limits for a better scale
-            ax_carrier.set_xlim(0, 0.1)  # Adjust the values as needed
-
-            st.pyplot(fig_carrier)
-
-            # Plot sinyal modulasi amplitudo
-            fig_modulation, ax_modulation = plt.subplots()
-            ax_modulation.plot(t, sinyal_AM)
-            ax_modulation.set_title('Sinyal Modulasi Amplitudo')
-            ax_modulation.set_xlabel('Waktu (s)')
-            ax_modulation.set_ylabel('Amplitudo (V)')
-            ax_modulation.grid()
-
-            # Set x-axis and y-axis limits for a better scale
-            ax_modulation.set_xlim(0, 0.1)  # Adjust the values as needed
-
-            st.pyplot(fig_modulation)
+            # Display the DataFrame
+            st.write(df)
 
         elif jenis_modulasi == "Modulasi Frekuensi":
             # Perform modulation
             sinyal_informasi, sinyal_pembawa, sinyal_FM, nilai_m = modulasi_frekuensi(
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
-            
-            label_nilai_m = st.empty()
-            label_nilai_m.text(f"Nilai Indeks Modulasi: {nilai_m}")
 
-            # Plot sinyal informasi
-            fig_info, ax_info = plt.subplots()
-            ax_info.plot(t, sinyal_informasi)
-            ax_info.set_title('Sinyal Informasi')
-            ax_info.set_xlabel('Waktu (S)')
-            ax_info.set_ylabel('Amplitudo (V)')
-            ax_info.grid()
+            # Create a DataFrame for the time series data
+            df = pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi, 'Pembawa': sinyal_pembawa, 'Modulasi': sinyal_FM})
 
-            # Set x-axis and y-axis limits for a better scale
-            ax_info.set_xlim(0, 0.1)  # Adjust the values as needed
-
-            st.pyplot(fig_info)
-
-            # Plot sinyal pembawa
-            fig_carrier, ax_carrier = plt.subplots()
-            ax_carrier.plot(t, sinyal_pembawa)
-            ax_carrier.set_title('Sinyal Pembawa')
-            ax_carrier.set_xlabel('Waktu (S)')
-            ax_carrier.set_ylabel('Amplitudo (V)')
-            ax_carrier.grid()
-
-            # Set x-axis and y-axis limits for a better scale
-            ax_carrier.set_xlim(0, 0.1)  # Adjust the values as needed
-
-            st.pyplot(fig_carrier)
-
-            # Plot sinyal modulasi frekuensi
-            fig_modulation, ax_modulation = plt.subplots()
-            ax_modulation.plot(t, sinyal_FM)
-            ax_modulation.set_title('Sinyal Modulasi Frekuensi')
-            ax_modulation.set_xlabel('Waktu (S)')
-            ax_modulation.set_ylabel('Amplitudo (V)')
-            ax_modulation.grid()
-
-            # Set x-axis and y-axis limits for a better scale
-            ax_modulation.set_xlim(0, 0.1)  # Adjust the values as needed
-
-            st.pyplot(fig_modulation)
+            # Display the DataFrame
+            st.write(df)
 
     # Load and display the image
     image_path = "RumusFM_dan_AM.png"
