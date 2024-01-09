@@ -67,9 +67,9 @@ def main():
             st.write(df)
 
             # Plot the graphs using Streamlit's native plotting
-            st.line_chart(pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Pembawa': sinyal_pembawa}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi': sinyal_AM}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Informasi': sinyal_informasi}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Pembawa': sinyal_pembawa}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi Amplitudo': sinyal_AM}))
 
         elif jenis_modulasi == "Modulasi Frekuensi":
             # Perform modulation
@@ -77,15 +77,15 @@ def main():
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
 
             # Create a DataFrame for the time series data
-            df = pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi, 'Pembawa': sinyal_pembawa, 'Modulasi': sinyal_FM})
+            df = pd.DataFrame({'Waktu (s)': t, 'Informasi': sinyal_informasi, 'Pembawa': sinyal_pembawa, 'Modulasi': sinyal_FM})
 
             # Display the DataFrame
             st.write(df)
 
             # Plot the graphs using Streamlit's native plotting
-            st.line_chart(pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Pembawa': sinyal_pembawa}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi': sinyal_FM}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Informasi': sinyal_informasi}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Pembawa': sinyal_pembawa}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi Frekuensi': sinyal_FM}))
 
 
     # Load and display the image
