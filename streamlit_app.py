@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
+matplotlib.use("TkAgg")
+
 # Modulasi Amplitudo
 def modulasi_amplitudo(amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t):
     sinyal_informasi = amplitudo_informasi * np.cos(2 * np.pi * frekuensi_informasi * t)
