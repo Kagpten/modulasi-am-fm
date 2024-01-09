@@ -50,7 +50,6 @@ def main():
     # Choose modulation type
     jenis_modulasi = st.radio("Pilih Modulasi:", ["Modulasi Amplitudo", "Modulasi Frekuensi"])
 
-
     if st.button("Proses"):
         # Waktu (t) with more points
         t = np.linspace(0, 1, 10000)
@@ -61,15 +60,13 @@ def main():
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
 
             # Create a DataFrame for the time series data
-            df = pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi, 'Pembawa': sinyal_pembawa, 'Modulasi': sinyal_AM})
+            df = pd.DataFrame({'Waktu (s)': t, 'Sinyal Informasi': sinyal_informasi, 'Sinyal Pembawa': sinyal_pembawa, 'Modulasi Amplitudo': sinyal_AM})
 
             # Display the DataFrame
             st.write(df)
 
             # Plot the graphs using Streamlit's native plotting
-            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Informasi': sinyal_informasi}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Pembawa': sinyal_pembawa}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi Amplitudo': sinyal_AM}))
+            st.line_chart(df.set_index('Waktu (s)'))
 
         elif jenis_modulasi == "Modulasi Frekuensi":
             # Perform modulation
@@ -77,17 +74,13 @@ def main():
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
 
             # Create a DataFrame for the time series data
-            df = pd.DataFrame({'Waktu (s)': t, 'Informasi': sinyal_informasi, 'Pembawa': sinyal_pembawa, 'Modulasi': sinyal_FM})
+            df = pd.DataFrame({'Waktu (s)': t, 'Sinyal Informasi': sinyal_informasi, 'Sinyal Pembawa': sinyal_pembawa, 'Modulasi Frekuensi': sinyal_FM})
 
             # Display the DataFrame
             st.write(df)
 
             # Plot the graphs using Streamlit's native plotting
-            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Informasi': sinyal_informasi}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Pembawa': sinyal_pembawa}))
-            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi Frekuensi': sinyal_FM}))
-            st.line_chart(chart_data, x="col1", y="col2", color="col3")
-
+            st.line_chart(df.set_index('Waktu (s)'))
 
     # Load and display the image
     image_path = "RumusFM_dan_AM.png"
