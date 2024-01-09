@@ -86,7 +86,7 @@ def main():
             st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Informasi': sinyal_informasi}))
             st.line_chart(pd.DataFrame({'Time': t, 'Sinyal Pembawa': sinyal_pembawa}))
             st.line_chart(pd.DataFrame({'Time': t, 'Modulasi Frekuensi': sinyal_FM}))
-            st,line_chart(chart_data, x="col1", y="col2", color="col3")
+            st.line_chart(chart_data, x="col1", y="col2", color="col3")
 
 
     # Load and display the image
