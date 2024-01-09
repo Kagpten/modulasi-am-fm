@@ -66,6 +66,11 @@ def main():
             # Display the DataFrame
             st.write(df)
 
+            # Plot the graphs using Streamlit's native plotting
+            st.line_chart(pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Pembawa': sinyal_pembawa}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi': sinyal_AM}))
+
         elif jenis_modulasi == "Modulasi Frekuensi":
             # Perform modulation
             sinyal_informasi, sinyal_pembawa, sinyal_FM, nilai_m = modulasi_frekuensi(
@@ -76,6 +81,12 @@ def main():
 
             # Display the DataFrame
             st.write(df)
+
+            # Plot the graphs using Streamlit's native plotting
+            st.line_chart(pd.DataFrame({'Time': t, 'Informasi': sinyal_informasi}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Pembawa': sinyal_pembawa}))
+            st.line_chart(pd.DataFrame({'Time': t, 'Modulasi': sinyal_FM}))
+
 
     # Load and display the image
     image_path = "RumusFM_dan_AM.png"
