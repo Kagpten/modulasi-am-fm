@@ -152,7 +152,7 @@ def main():
             st.pyplot(fig_modulation)
 
     # Load and display the image
-    image_path = "C:/Users/user/Documents/Tugas Besar si rustam Aril/TUBES DASTEL/Modulasi Amplitudo/Amplitude Modulation/Rumus FM dan AM.png"
+    image_path = "RumusFM_dan_AM.png"
     image = Image.open(image_path)
     st.image(image, caption="Modulation Formulas", use_column_width=True)
 
