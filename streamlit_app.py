@@ -1,7 +1,6 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from PIL import Image
 
 # Modulasi Amplitudo
 def modulasi_amplitudo(amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t):
@@ -26,63 +25,66 @@ def modulasi_frekuensi(amplitudo_informasi, frekuensi_informasi, amplitudo_pemba
 
 # Streamlit App
 def main():
-    # Center-aligned title
-    st.markdown("<h1 style='text-align:center;'>Modulasi Amplitudo dan Frekuensi</h1>", unsafe_allow_html=True)
-
-    # Center-aligned text
-    st.markdown("<p style='text-align:center;'>Dibuat oleh:</p>", unsafe_allow_html=True)
-
-    # Center-aligned header
-    st.markdown("<p style='text-align:center;'>ARILA RANGGA ALRASYID</p>", unsafe_allow_html=True)
-
-    # Center-aligned text
-    st.markdown("<p style='text-align:center;'>11-2021-008</p>", unsafe_allow_html=True)
-
-    st.markdown("<p style='text-align:center;'>Dosen Pembimbing:</p>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center;'>Ir. Rustamaji, M.T</p>", unsafe_allow_html=True)
-
-    # Get user input
+    # Judul
+    st.title("Modulasi Amplitudo dan Frekuensi")
+    
+    # Informasi Pembuat
+    st.markdown("### Dibuat oleh:")
+    st.markdown("ARILA RANGGA ALRASYID")
+    st.markdown("11-2021-008")
+    
+    # Dosen Pembimbing
+    st.markdown("### Dosen Pembimbing:")
+    st.markdown("Ir. Rustamaji, M.T")
+    
+    # Input User
     amplitudo_informasi = st.number_input("Amplitudo Informasi (V):", min_value=0.1, value=1.0)
     frekuensi_informasi = st.number_input("Frekuensi Informasi (Hz):", min_value=1.0, max_value=100.0, value=10.0)
     amplitudo_pembawa = st.number_input("Amplitudo Pembawa (V):", min_value=0.1, value=5.0)
     frekuensi_pembawa = st.number_input("Frekuensi Pembawa (Hz):", min_value=1.0, max_value=1000.0, value=100.0)
 
-    # Choose modulation type
+    # Pilih Modulasi
     jenis_modulasi = st.radio("Pilih Modulasi:", ["Modulasi Amplitudo", "Modulasi Frekuensi"])
 
     if st.button("Proses"):
-        # Waktu (t) with more points
+        # Waktu (t) dengan lebih banyak titik
         t = np.linspace(0, 1, 10000)
 
         if jenis_modulasi == "Modulasi Amplitudo":
-            # Perform modulation
+            # Melakukan modulasi
             sinyal_informasi, sinyal_pembawa, sinyal_AM, nilai_m = modulasi_amplitudo(
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
 
-            # Create a DataFrame for the time series data
+            # Menampilkan nilai Indeks Modulasi
+            st.write(f"Nilai Indeks Modulasi: {nilai_m}")
+
+            # Membuat DataFrame untuk data deret waktu
             df = pd.DataFrame({'Waktu (s)': t, 'Sinyal Informasi': sinyal_informasi, 'Sinyal Pembawa': sinyal_pembawa, 'Modulasi Amplitudo': sinyal_AM})
 
-            # Display the DataFrame
+            # Menampilkan DataFrame
             st.write(df)
 
-            # Plot the graphs using Streamlit's native plotting
-            st.line_chart(df.set_index('Waktu (s)'), use_container_width=True, x_axis_label='Waktu (s)', y_axis_label='Amplitudo (V)')
+            # Plot grafik menggunakan plotting natif Streamlit
+            st.line_chart(df.set_index('Waktu (s)'))
 
         elif jenis_modulasi == "Modulasi Frekuensi":
-            # Perform modulation
+            # Melakukan modulasi
             sinyal_informasi, sinyal_pembawa, sinyal_FM, nilai_m = modulasi_frekuensi(
                 amplitudo_informasi, frekuensi_informasi, amplitudo_pembawa, frekuensi_pembawa, t)
 
-            # Create a DataFrame for the time series data
+            # Menampilkan nilai Indeks Modulasi
+            st.write(f"Nilai Indeks Modulasi: {nilai_m}")
+
+            # Membuat DataFrame untuk data deret waktu
             df = pd.DataFrame({'Waktu (s)': t, 'Sinyal Informasi': sinyal_informasi, 'Sinyal Pembawa': sinyal_pembawa, 'Modulasi Frekuensi': sinyal_FM})
 
-            # Display the DataFrame
+            # Menampilkan DataFrame
             st.write(df)
 
-            # Plot the graphs using Streamlit's native plotting
-            st.line_chart(df.set_index('Waktu (s)'), use_container_width=True, x_axis_label='Waktu (s)', y_axis_label='Amplitudo (V)')
+            # Plot grafik menggunakan plotting natif Streamlit
+            st.line_chart(df.set_index('Waktu (s)'))
 
-    # Load and display the image
+    # Load dan tampilkan gambar
     image_path = "RumusFM_dan_AM.png"
     image = Image.open(image_path)
     st.image(image, caption="Modulation Formulas", use_column_width=True)
